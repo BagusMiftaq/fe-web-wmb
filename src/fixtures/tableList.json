@@ -1,0 +1,14 @@
+{
+  "data" : [
+    {
+      "tableNum": "A01",
+      "tableStatus" : "Available"
+
+    }
+
+  ],
+  "count": 1,
+  "totalPage": 1,
+  "page": 1,
+  "size": 3
+}

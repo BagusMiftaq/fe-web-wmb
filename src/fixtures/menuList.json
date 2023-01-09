@@ -1,0 +1,43 @@
+{
+  "data" : [
+    {
+      "menuId" : "f639b9f5-1235-434e-b1f9-6024c1b88551",
+      "title" : "Bakso",
+      "price" : "12000",
+      "category" : "food",
+      "description" : "Bakso anget"
+    },
+    {
+      "menuId" : "f639b9f5-1235-434e-b1f9-6024c1b88552",
+      "title" : "Mie Ayam",
+      "price" : "10000",
+      "category" : "food",
+      "description" : "Mie Ayam Original"
+    },
+    {
+      "menuId" : "f639b9f5-1235-434e-b1f9-6024c1b88553",
+      "title" : "Es Teh Manis",
+      "price" : "4000",
+      "category" : "beverage",
+      "description" : "Es Teh Manis"
+    },
+    {
+      "menuId" : "f639b9f5-1235-434e-b1f9-6024c1b88554",
+      "title" : "Nasi Goreng Original",
+      "price" : "12000",
+      "category" : "food",
+      "description" : "Nasi Goreng + Telur"
+    },
+    {
+      "menuId" : "f639b9f5-1235-434e-b1f9-6024c1b88555",
+      "title" : "Es Tawar",
+      "price" : "2000",
+      "category" : "beverage",
+      "description" : "Air Putih + Es Batu"
+    }
+  ],
+  "count": 5,
+  "totalPage": 2,
+  "page": 1,
+  "size": 3
+}
