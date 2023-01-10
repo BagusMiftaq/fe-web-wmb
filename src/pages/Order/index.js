@@ -1,10 +1,9 @@
 import {Button, Modal} from "react-bootstrap";
 import React, {useState} from "react";
 import {connect, useDispatch} from "react-redux";
-import withPaginationList from "../../hoc/withPaginationList";
-import constants from "../../constants";
 import {StyledListGroup} from "../MenuList/styles";
 import OrderItem from "./OrderItem";
+import justList from "../../hoc/justList";
 
 function MyVerticallyCenteredModal(props) {
     return (
@@ -34,7 +33,7 @@ function MyVerticallyCenteredModal(props) {
     );
 }
 
-const Modalizer=()=>{
+const Modalizer = () => {
     const [modalShow, setModalShow] = React.useState(false);
 
     return (
@@ -57,39 +56,46 @@ const FORM_CAT = [
     {label: "Beverage"}
 ]
 
-const Order=({data})=>{
+const Order = ({data}) => {
     const dispatch = useDispatch();
     const [activated, setActivated] = useState(false);
-    const handleClick=()=>{
+    const [val, setVal] = useState("");
 
-        setActivated(true)
-    }
+    console.log(val);
+    console.log(data);
 
-    return(
-        <div style={{display:"flex", justifyContent:"space-evenly", marginTop:"20px"}}>
-            <div style={{display:"flex", flexDirection:"column", flexGrow:0.5, marginRight:"20px"}}>
-                <div style={{justifyContent:"center", alignItems:"center", margin:"auto"}}>
-                    <h2 style={{margin:"10px"}}>List Menu</h2>
-                    {FORM_CAT.map(item=>(
-                        <Button variant={activated? "primary" : "outline-primary"} style={{margin:"10px"}} onClick={handleClick}>{item.label}</Button>
+    return (
+        <div style={{display: "flex", justifyContent: "space-evenly", marginTop: "20px"}}>
+            <div style={{display: "flex", flexDirection: "column", marginRight: "20px"}}>
+                <div style={{justifyContent: "center", alignItems: "center"}}>
+                    <h2 style={{margin: "10px"}}>List Menu</h2>
+                    {FORM_CAT.map(item => (
+                        <Button variant={val === item.label && activated ? "primary" : "outline-primary"}
+                                style={{margin: "10px"}} onClick={() => {
+                            setVal(item.label)
+
+
+                        }
+                        }>{item.label}</Button>
                     ))}
                 </div>
-                <hr style={{border:"2px solid blue"}}/>
-                <div>
-                    <StyledListGroup>
-                        {data?.map((item) => (
-                            <OrderItem
-                                data={item}
-                                key={item?.menuId}
-                            />
-                        ))}
+                <hr style={{border: "2px solid blue"}}/>
+                <div style={{display: "flex", flexWrap: "wrap", width: "350px"}}>
+                    <StyledListGroup className={"d-flex flex-row flex-wrap"}>
+                        {
+                            data?.map((item) => (
+                                <OrderItem
+                                    data={item}
+                                    key={item?.menuId}
+                                />
+                            ))}
                     </StyledListGroup>
                 </div>
             </div>
-            <div style={{display:"flex", flexDirection:"column", flexGrow:1}}>
+            <div style={{display: "flex", flexDirection: "column", flexGrow: 1}}>
                 <h2>Order List</h2>
             </div>
-            <div style={{display:"flex", flexDirection:"column", flexGrow:1}}>
+            <div style={{display: "flex", flexDirection: "column", flexGrow: 1}}>
                 <h2>Transaction</h2>
             </div>
         </div>
@@ -97,11 +103,7 @@ const Order=({data})=>{
 }
 
 const mapStateToProps = state => ({
-    listData : state.orders.menuList,
-    pagination: state.orders.pagination
+    listData: state.menus.menuList
 })
 
-export default connect(mapStateToProps, null) (withPaginationList(Order, {
-    label : "Order",
-    navAdd : constants.ROUTES.ADD_TRANSACTION
-}));
+export default connect(mapStateToProps, null)(justList(Order));

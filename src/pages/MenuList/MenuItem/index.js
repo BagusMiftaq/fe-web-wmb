@@ -7,7 +7,7 @@ const MenuItem = ({data, onDelete}) => {
         <StyledListItem action>
             <Col>
                 <h3 className="font-weight-bold">{data?.title}</h3>
-                <p>Rp. {(data?.price)}</p>
+                <p>Rp. {Number(data?.price).toLocaleString("id-ID")}</p>
             </Col>
                 <ButtonGroup>
                     <Button variant="outline-danger" style={{width: "100px"}} onClick={onDelete}>Delete</Button>

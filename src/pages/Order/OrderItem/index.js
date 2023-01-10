@@ -2,14 +2,11 @@ import {StyledListItem} from "./styles";
 import {Button, ButtonGroup, Col} from "react-bootstrap";
 import React from "react";
 
-const OrderItem = ({data, onDelete}) => {
-    return(
-        <StyledListItem action>
-            <Col>
-                <h4 className="font-weight-bold">{data?.title}</h4>
-                <p>Rp. {(data?.price)}</p>
-            </Col>
-        </StyledListItem>
+const OrderItem = ({data}) => {
+    return (
+        <div style={{marginRight:"10px", height:"40px"}}>
+            <Button className="font-weight-bold" variant={"outline-primary"}>{data?.title}</Button>
+        </div>
     )
 }
 
