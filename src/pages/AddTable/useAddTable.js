@@ -3,7 +3,7 @@ import {onChangeText} from "../../utils/eventHandlers";
 
 const useAddTable =()=>{
     const [tableNum, setTableNum] = useState("");
-    const [tableStatus, setTableStatus] = useState("Available");
+    const [tableStatus, setTableStatus] = useState("AVAILABLE");
     const [isDisable, setDisable] = useState(true);
 
     const getter = {tableNum, tableStatus, isDisable};

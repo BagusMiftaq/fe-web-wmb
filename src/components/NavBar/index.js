@@ -2,8 +2,8 @@ import {Button, Col, Container, Navbar, NavLink} from "react-bootstrap";
 import {StyledNav} from "./styles";
 import {Link, useNavigate} from "react-router-dom";
 import constants from "../../constants";
-import useToken from "../../hooks/useToken";
 import logo from "../../assets/logo.png";
+import {removeToken} from "../../utils/token";
 
 const menu = [
     {path: constants.ROUTES.LIST_MENU, menuName: "Menu Management"},
@@ -13,8 +13,8 @@ const menu = [
 
 
 const NavBar = () => {
-    const {removeToken} = useToken();
     const onNavigate = useNavigate();
+
     const onLogout = () => {
         removeToken();
         onNavigate(constants.ROUTES.LOGIN);

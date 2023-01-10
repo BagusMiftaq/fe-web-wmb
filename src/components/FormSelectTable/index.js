@@ -7,13 +7,14 @@ const FormSelect = ({label, onChange, value, disabled})=>(
         <FormLabel>{label}</FormLabel>
         <Form.Select
         onChange={onChange}
-        isValid={value}>
+        isValid={value}
+        value={value}>
             <option disabled selected>select status</option>
                 <option
-                    value={"Available"}
+                    value="Available"
                     disabled={disabled}>Available</option>
             <option
-                value={"Unavailable"}
+                value="Unavailable"
                 disabled={disabled}>Unavailable</option>
         </Form.Select>
     </FormGroup>

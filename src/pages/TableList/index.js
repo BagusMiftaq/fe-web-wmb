@@ -1,26 +1,25 @@
 import {StyledListGroup, StyledText} from "./styles";
-import {connect, useDispatch} from "react-redux";
 import {useNavigate} from "react-router-dom";
 import constants from "../../constants";
 import withPaginationList from "../../hoc/withPaginationList"
-import {deleteTable} from "../../store/action/tableAction";
+import {deleteTable, getTable} from "../../services/tableApi";
 import TableItem from "./TableItem";
+import useFetchMutation from "../../hooks/useFetchMutation";
 
 const Empty = () => (
     <StyledText>Data Kosong...</StyledText>
 )
 
-const List = ({data}) => {
-
-    const dispatch = useDispatch();
+const List = ({data, refetch}) => {
     const onNavigate = useNavigate();
+    const {fetchMutation: delTable} = useFetchMutation(deleteTable, refetch);
 
-    console.log(data)
+    // console.log(data)
 
     const onDelete = (id)=> () => {
         const  isOk= window.confirm("Are U sure want to delete it?");
         if(isOk){
-            dispatch(deleteTable(id))
+            delTable(id);
         }
     }
 
@@ -39,12 +38,8 @@ const List = ({data}) => {
     )
 }
 
-const mapStateToProps = state => ({
-    listData : state.tables.tableList,
-    pagination: state.tables.pagination
-})
-
-export default connect(mapStateToProps, null) (withPaginationList(List, {
+export default (withPaginationList(List, {
     label : "Table",
-    navAdd : constants.ROUTES.ADD_TABLE
+    navAdd : constants.ROUTES.ADD_TABLE,
+    query: getTable
 }));

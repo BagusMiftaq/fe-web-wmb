@@ -7,7 +7,6 @@ export const addMenu = (menu) => {
             menuId : Math.random().toString(36).substring(2,7),
             title : menu.title,
             price : menu.price,
-            description : menu.description,
         }
     }
 }

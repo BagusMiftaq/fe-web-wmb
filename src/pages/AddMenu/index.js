@@ -5,23 +5,28 @@ import constants from "../../constants";
 import {FormSelect, FormText, StyledContainer} from "../../components";
 import {StyledTitle} from "./styles";
 import {Button, ButtonGroup, Form} from "react-bootstrap";
-import {addMenu} from "../../store/action/menuAction";
+import {addMenu} from "../../services/menuApi";
+import useFetchMutation from "../../hooks/useFetchMutation";
 
 const FORM_LIST = [
     {id: "title", label: "Menu Name", type: "text", placeholder: "Enter Menu Name"},
     {id: "price", label: "Price", type: "number", placeholder: "Enter Price"},
-    {id: "description", label: "Description", type: "textarea", placeholder: "Enter Description"}
 ]
 
-const AddMenu = ({addMenu}) =>{
+const AddMenu = () =>{
     const {getter, setter} = useAddMenu();
-    const dispacth = useDispatch();
     const onNavigate = useNavigate();
+    const {fetchMutation, loading} = useFetchMutation(addMenu,()=>onNavigate(constants.ROUTES.LIST_MENU));
+
+    console.log(getter.category)
 
     const handleSubmit = () =>{
-        addMenu(getter);
-        console.log(getter);
-        onNavigate(constants.ROUTES.LIST_MENU)
+        const payload = new FormData();
+        payload.append("title", getter.title);
+        payload.append("price", getter.price);
+        payload.append("category", getter.category);
+
+        fetchMutation(payload)
     }
 
     return(
@@ -45,7 +50,7 @@ const AddMenu = ({addMenu}) =>{
                     value={getter.category}
                 />
                 <ButtonGroup>
-                    <Button variant="success" onClick={handleSubmit} disabled={getter.isDisable}>
+                    <Button variant="success" onClick={handleSubmit} disabled={getter.isDisable || loading}>
                         Submit
                     </Button>
                     <Button variant="secondary" onClick={() => onNavigate(constants.ROUTES.LIST_MENU)}>
@@ -57,8 +62,4 @@ const AddMenu = ({addMenu}) =>{
     )
 }
 
-const mapDispatchToProps = (dispatch) => ({
-    addMenu : menu => dispatch(addMenu(menu))
-})
-
-export default connect(null, mapDispatchToProps) (AddMenu);
+export default AddMenu;

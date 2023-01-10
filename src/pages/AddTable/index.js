@@ -5,18 +5,20 @@ import {FormSelect, FormText, StyledContainer} from "../../components";
 import {StyledTitle} from "./styles";
 import {Button, ButtonGroup, Form} from "react-bootstrap";
 import useAddTable from "./useAddTable";
-import {addTable} from "../../store/action/tableAction";
-import FormSelectTable from "../../components/FormSelectTable";
+import useFetchMutation from "../../hooks/useFetchMutation";
+import {addTable} from "../../services/tableApi";
 
-const AddMenu = ({addTable}) =>{
+const AddTable = () =>{
     const {getter, setter} = useAddTable();
-    const dispacth = useDispatch();
     const onNavigate = useNavigate();
+    const {fetchMutation, loading} = useFetchMutation(addTable,()=>onNavigate(constants.ROUTES.LIST_TABLE))
 
     const handleSubmit = () =>{
-        addTable(getter);
-        console.log(getter);
-        onNavigate(constants.ROUTES.LIST_TABLE)
+        const payload = new FormData();
+        payload.append("tableNum", getter.tableNum);
+        payload.append("status", getter.tableStatus);
+
+        fetchMutation(payload);
     }
 
     return(
@@ -32,7 +34,7 @@ const AddMenu = ({addTable}) =>{
                         key={"tableNum"}
                     />
                 <ButtonGroup>
-                    <Button variant="success" onClick={handleSubmit} disabled={getter.isDisable}>
+                    <Button variant="success" onClick={handleSubmit} disabled={getter.isDisable || loading}>
                         Submit
                     </Button>
                     <Button variant="secondary" onClick={() => onNavigate(constants.ROUTES.LIST_TABLE)}>
@@ -44,8 +46,4 @@ const AddMenu = ({addTable}) =>{
     )
 }
 
-const mapDispatchToProps = (dispatch) => ({
-    addTable : table => dispatch(addTable(table))
-})
-
-export default connect(null, mapDispatchToProps) (AddMenu);
+export default AddTable;

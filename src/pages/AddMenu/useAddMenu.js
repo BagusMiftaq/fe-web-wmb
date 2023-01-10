@@ -5,24 +5,22 @@ const useAddMenu =()=>{
     const [title, setTitle] = useState("");
     const [price, setPrice] = useState();
     const [category, setCategory] = useState("");
-    const [description, setDescription] = useState("");
     const [isDisable, setDisable] = useState(true);
 
-    const getter = {title, price, description, isDisable};
+    const getter = {title, price, category, isDisable};
     const setter = {
         title : onChangeText(setTitle),
         price : onChangeText(setPrice),
         category : onChangeText(setCategory),
-        description : onChangeText(setDescription)
     }
 
     useEffect(()=>{
-        if(title && price && category && description){
+        if(title && price && category){
             setDisable(false)
         } else {
             setDisable(true)
         }
-    }, [title, price, category, description])
+    }, [title, price, category])
 
     return {
         getter, setter
